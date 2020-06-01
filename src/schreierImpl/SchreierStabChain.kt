@@ -1,18 +1,18 @@
 class SchreierStabChain(
-    private val base: MutableList<Int>,
-    generatorsSet: MutableList<Permutation>,
-    private val chain: MutableList<SubgroupG> = ArrayList())  {
+        private val base: MutableList<Int>,
+        generators: MutableList<Permutation>,
+        private val stabChain: MutableList<SubgroupG> = ArrayList())  {
     private val id = Permutation(MutableList(size) { it })
 
     init {
-        var helpPermutations = generatorsSet
+        var permutations = generators
         for (b in 0 until base.size) {
 
             val root = base[b]
-            val tree = SchreierTree(root, helpPermutations)
+            val tree = SchreierTree(root, permutations)
 
-            val newG = SubgroupG(root, helpPermutations, tree)
-            chain.add(newG)
+            val newG = SubgroupG(root, permutations, tree)
+            stabChain.add(newG)
             val temp: MutableList<Permutation> = ArrayList()
 
             for (y in 0 until size) {
@@ -32,7 +32,7 @@ class SchreierStabChain(
                     }
                 }
             }
-            helpPermutations = normalize(temp)
+            permutations = normalize(temp)
         }
     }
 
@@ -73,7 +73,7 @@ class SchreierStabChain(
     //считает порядок группы
     fun groupOrder(): Long {
         var result: Long = 1
-        chain.forEach {
+        stabChain.forEach {
             result *= it.tree.nodes.size
         }
         return result
@@ -84,8 +84,8 @@ class SchreierStabChain(
         var myPermutation = permutation
         for (i in 0 until base.size) {
             val v = myPermutation.appliedToElement(base[i])
-            if (!chain[i].tree.nodes.containsKey(v)) return false
-            var restoredPermutation = restorePermutation(base[i], v, chain[i].tree)
+            if (!stabChain[i].tree.nodes.containsKey(v)) return false
+            var restoredPermutation = restorePermutation(base[i], v, stabChain[i].tree)
             restoredPermutation = restoredPermutation.reverse()
             myPermutation = restoredPermutation.multiplyFromRight(myPermutation)
         }

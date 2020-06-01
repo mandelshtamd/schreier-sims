@@ -10,13 +10,11 @@ class TwoElementsTree(
     private val permutations: MutableList<Permutation>,
     val nodes: HashMap<Pair<Int, Int>, Node> = HashMap())
     {
-
         init {
             createTree()
         }
 
         class Node() {}
-
         private fun createTree() {
 
             val been = HashMap<Pair<Int, Int>, Boolean>()

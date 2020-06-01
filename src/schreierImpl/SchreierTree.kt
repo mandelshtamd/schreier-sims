@@ -10,9 +10,7 @@ class SchreierTree(
     init {
         createTree()
     }
-
-    class Node(val parent: Int, val permutation: Permutation) {
-    }
+    class Node(val parent: Int, val permutation: Permutation) {}
 
     private fun createTree() {
         val been = MutableList (size) { false }
@@ -26,7 +24,7 @@ class SchreierTree(
         been[root] = true
         nodes[root] = Node(root, Permutation(id))
 
-        // dfs-ом ищем все элементы в которые мы можем попасть из root-а
+        // dfs-ом проходим по всем элементам в которые мы можем попасть из корня
 
         while (queue.isNotEmpty()) {
             val element: Int = queue.remove()

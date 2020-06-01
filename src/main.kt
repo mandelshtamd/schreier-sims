@@ -23,7 +23,7 @@ fun secondTask(Permutations: MutableList<Permutation>) {
 
 
 fun main() {
-    val myPermutation: MutableList<Permutation> = ArrayList()
+    val permutations: MutableList<Permutation> = ArrayList()
 
     //перестановка первого типа
     var listPermutation: MutableList<Int> = ArrayList()
@@ -40,10 +40,10 @@ fun main() {
     var permutation = Permutation(listPermutation)
     GeneratorsHolder.generatorsHolder[permutation] = 54
     permutation.decomposition.add(54)
-    var reversePermutation = permutation.reverse()
+    var reversed = permutation.reverse()
     permutation.decomposition.add(-54)
-    myPermutation.add(permutation)
-    myPermutation.add(reversePermutation)
+    permutations.add(permutation)
+    permutations.add(reversed)
 
     //перестановка второго типа
     listPermutation = ArrayList()
@@ -57,12 +57,12 @@ fun main() {
     GeneratorsHolder.generatorsHolder[permutation] = 54
     permutation.decomposition.add(54)
 
-    reversePermutation = permutation.reverse()
+    reversed = permutation.reverse()
     permutation.decomposition.add(-54)
-    myPermutation.add(permutation)
-    myPermutation.add(reversePermutation)
+    permutations.add(permutation)
+    permutations.add(reversed)
 
 
-    firstTask(myPermutation)
-    secondTask(myPermutation)
+    firstTask(permutations)
+    secondTask(permutations)
 }
